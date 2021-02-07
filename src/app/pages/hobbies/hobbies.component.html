@@ -1,0 +1,44 @@
+<div class="hobby-wrapper">
+  <a [routerLink]="['/home']">Home</a>
+  <div class="hobbies-list">
+    <div class="search">
+      <input type="text" placeholder="search hobbies" [(ngModel)]='search' (ngModelChange)='FilterTitles()'>
+    </div>
+    <div>
+      <form class="hobbies-form" action="" [formGroup]='formHobby' (submit)="submitHobbyForm()">
+        <div class="form-row">
+          <label for="hobby-name">Hobby name</label>
+          <input id="hobby-name" type="text" placeholder="name" formControlName='title'>
+          <small class="form-error" *ngIf="isHobbyControlValid('title')">Поле Name должно быть не меньше 3 символов</small>
+      </div>
+      <div class="form-row">
+        <label for="hobby-description">Hobby description</label>
+        <input id="hobby-description" type="text" placeholder="description" formControlName='description'>
+        <small class="form-error" *ngIf="isHobbyControlValid('description')">Поле Description должно быть не меньше 5 символов</small>
+      </div>
+      <div class="form-row">
+        <label for="hobby-achievement">Hobby achievement</label>
+        <input id="hobby-achievement" type="text" placeholder="achievement" formControlName='achievement'>
+        <small class="form-error" *ngIf="isHobbyControlValid('achievement')">Поле Achievement должно быть не меньше 5 символов</small>
+      </div>
+        <button type="submit">add hobby</button>
+      </form>
+    </div>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">№</th>
+            <th scope="col">Name</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let h of hobbies, index as i">
+            <td>{{i + 1}}</td>
+            <td [routerLink]="['/hobbies', h.id]" class="hobby-title">{{h.title}}</td>
+            <td><button type="button" class="btn btn-danger" (click)='removeHobby(h)'>Delete hobby</button></td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+</div>

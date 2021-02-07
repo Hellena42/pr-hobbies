@@ -1,0 +1,21 @@
+<div>
+  <form action="" [formGroup]='form' (submit)='onSubmit()'>
+    <div>
+     </div>
+      <div class="form-row">
+          <label for='firstname'>Firstname</label>
+          <input type="text" formControlName="firstname">
+          <div class="form-validation">
+              <small class="form-error" *ngIf="isControlValid('firstname')">Firstname не может быть меньше 2 символов</small>
+          </div>
+      </div>
+      <div class="form-row">
+          <label for='lastname'>Lastname</label>
+          <input type="text" formControlName="lastname">
+          <div class="form-validation">
+            <small class="form-error" *ngIf="isControlValid('lastname')">Lastname не может быть меньше 3 символов</small>
+        </div>
+      </div>
+      <button type="submit" class="btn-login">Login</button>
+  </form>
+</div>  

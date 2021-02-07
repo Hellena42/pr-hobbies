@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+a {
+text-decoration:  none !important;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+form input {
+  &.ng-invalid.ng-touched {
+    border: 1px solid red;
+  };
+  &.ng-valid.ng-touched {
+    border: 1px solid green;
+  }
+}
+
+.form-error {
+  margin-top: 10px;
+  font-size: 11px;
+  color: red;
+}

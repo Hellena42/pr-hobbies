@@ -1,0 +1,32 @@
+form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.form-row input, .btn-login {
+  padding: 5px;
+}
+
+.btn-login {
+  min-height: 45px;
+  background-color: olivedrab;
+  border: none;
+}
+
+// input {
+//   &.ng-invalid.ng-touched {
+//     border: 1px solid red;
+//   };
+//   &.ng-valid.ng-touched {
+//     border: 1px solid green;
+//   }
+// }
+
+// .form-error {
+//   margin-top: 10px;
+//   font-size: 11px;
+//   color: red;
+// }

@@ -1,0 +1,18 @@
+.hobbies-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.search {
+  margin-bottom: 20px;
+}
+
+.hobbies-form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+}
+
+.hobby-title {
+  cursor: pointer;
+}
