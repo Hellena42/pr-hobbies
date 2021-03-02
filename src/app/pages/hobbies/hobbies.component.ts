@@ -11,6 +11,7 @@ import { DataSharingService } from 'src/app/shared/services/data-sharing.service
 })
 export class HobbiesComponent implements OnInit {
   formHobby!: FormGroup;
+  filteredHobbies: Hobby[] = [];
   hobbies: any[];
   search: any;
   title: any;
@@ -26,6 +27,7 @@ export class HobbiesComponent implements OnInit {
 
   ngOnInit() {
     this.initFormHobby();
+    this.hobbies = this.dataSharingService.hobbies.sort((a, b) => a.title.localeCompare(b.title));
   }
 
   initFormHobby() {
@@ -64,8 +66,8 @@ export class HobbiesComponent implements OnInit {
       return;
     }
     if(this.formHobby.valid) {
-      this.hobbies.push({
-        id: this.hobbies.length + 1,
+      this.dataSharingService.hobbies.push({
+        id: this.dataSharingService.hobbies.length + 1,
         title: controlValue.title,
         description: controlValue.description,
         achievement: controlValue.achievement 
@@ -80,10 +82,12 @@ export class HobbiesComponent implements OnInit {
 
   FilterTitles() {
     if (this.search == '') {
-      this.hobbies = this.dataSharingService.hobbies;
+      this.filteredHobbies = this.dataSharingService.hobbies;
+      this.hobbies = this.filteredHobbies;
     } else {
-      this.hobbies = this.hobbies.filter(hobby =>
+      this.filteredHobbies = this.hobbies.filter(hobby =>
         hobby.title.toLowerCase().indexOf(this.search.toLowerCase()) !== -1);
+        this.hobbies = this.filteredHobbies;
     }
   }
 }

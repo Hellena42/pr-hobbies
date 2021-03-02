@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import { UserStateService } from 'src/app/shared/services/user-state.service';
+import {UserStateService} from 'src/app/shared/services/user-state.service';
+import {AuthService} from '../../shared/services/auth.service';
+import { LoginData } from 'src/app/shared/classes/login-data';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-login-page',
@@ -12,16 +15,19 @@ import { UserStateService } from 'src/app/shared/services/user-state.service';
 export class LoginPageComponent implements OnInit {
   form!: FormGroup;
   dataForm: any;
+  userName: LoginData = new LoginData();
 
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private userState: UserStateService) {
+    private userState: UserStateService,
+    public authService: AuthService) {
       this.dataForm = this.userState.formData;
     } 
 
   ngOnInit(): void {
     this.initForm();
+    this.userName = this.authService.getUsername();
   }
 
   initForm() {
@@ -33,7 +39,7 @@ export class LoginPageComponent implements OnInit {
     ],
       lastname: ['', [
         Validators.required,
-        Validators.minLength(3)
+        Validators.minLength(2)
       ]
     ]
     });
@@ -48,9 +54,8 @@ export class LoginPageComponent implements OnInit {
   onSubmit() {
     const controls = this.form.controls;
     const controlValue = this.form.value;
-    const usename = this.dataForm.firstname;
-    const userLastname = this.dataForm.lastname;
-    let isLoggedIn = this.dataForm.isLoggedIn;
+    const userFirstname = '11';
+    const userLastname = '11';
 
     if (this.form.invalid) {
       Object.keys(controls)
@@ -58,11 +63,9 @@ export class LoginPageComponent implements OnInit {
       return;
     }
 
-    if(controlValue.firstname == usename, controlValue.lastname == userLastname) {
-      const formData = {...controlValue};
-      isLoggedIn = true;
-      this.router.navigate(['home'], controlValue.firstname);
-      console.log('Login page: ', formData);
+    if (controlValue.firstname === userFirstname && controlValue.lastname === userLastname) {
+      this.form.reset();
+      this.authService.login(controlValue);
     }
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/shared/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,19 +8,47 @@ import { Router, ActivatedRoute } from '@angular/router';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  firstname: string = '';
-  
+  authenticated = false;
+  UserName: any;
+  UserLastname: any;
+
   constructor(
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    public authService: AuthService) {
+      this.authService.isLoggedIn.subscribe(value => {
+        if (value) {
+          this.authenticated = true;
+        } else {
+          this.authenticated = false;
+        } 
+      });
+      this.authService.loggedUser.subscribe(value => {
+        if (this.authenticated) {
+          this.UserName = value.firstname;
+          this.UserLastname = value.lastname;
+        }
+      });
+    }
 
   ngOnInit() {
-    this.firstname =  this.route.snapshot.params['firstname'];
-    console.log('Header: ', this.firstname);
+    this.authService.isLoggedIn.subscribe(value => {
+      if (value) {
+        this.authenticated = true;
+      } else {
+        this.authenticated = false;
+      } 
+    });
+    this.authService.loggedUser.subscribe(value => {
+      if (this.authenticated) {
+        this.UserName = value.firstname;
+        this.UserLastname = value.lastname;
+      }
+    });
   }
 
   logout() {
+    this.authService.isLoggedIn.next(false);
     this.router.navigate(['/']);
   }
-
 }
