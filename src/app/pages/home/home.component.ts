@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { from } from 'rxjs';
 import { DataSharingService } from 'src/app/shared/services/data-sharing.service';
 
 @Component({
@@ -9,7 +10,6 @@ import { DataSharingService } from 'src/app/shared/services/data-sharing.service
 })
 export class HomeComponent implements OnInit {
   hobbies: any [];
-  display: boolean = false;
 
   constructor(
     private dataSharingService: DataSharingService, private router: Router) {
@@ -17,15 +17,5 @@ export class HomeComponent implements OnInit {
    }
 
   ngOnInit(): void {
-  }
-
-  showInfo() {
-    if(!this.display) {
-      this.display = true;
-      this.router.navigate(['/home', 'home-info']);
-    } else {
-      this.display = false;
-      this.router.navigate(['/home']);
-    }
   }
 }

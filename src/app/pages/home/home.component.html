@@ -3,8 +3,9 @@
     <a [routerLink]="['/hobbies']" class="btn-hobby btn-danger">My Hobbies</a> 
   </div>
   <div class="home-content">
-    <button (click)='showInfo()'>Показать описание</button>
-    <p *ngIf='display'></p>
+    <app-home-info [myNumber]='5'></app-home-info>
+    <app-home-info [myNumber]='10'></app-home-info>
+    <app-home-info [myNumber]='15'></app-home-info>
   </div>
 </div>
 <router-outlet></router-outlet>

@@ -4,7 +4,6 @@ import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {UserStateService} from 'src/app/shared/services/user-state.service';
 import {AuthService} from '../../shared/services/auth.service';
 import { LoginData } from 'src/app/shared/classes/login-data';
-import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'app-login-page',

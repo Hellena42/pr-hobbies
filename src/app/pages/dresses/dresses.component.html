@@ -1,0 +1,8 @@
+<div class="dresses-wrap" *ngFor="let dress of dresses">
+  <p>Name: {{dress.name}}</p>
+  <p>Price: {{dress.original_price || 'n/a'}}</p>
+  <div *ngFor="let item of dress.size">
+    <span class="dress-size">Size: {{item}}</span>
+  </div>
+</div>
+<hr>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { LoginData } from 'src/app/shared/classes/login-data';
         
 @Injectable({providedIn: 'root'})
@@ -18,7 +18,6 @@ export class AuthService {
 
   getUsername() {
     return this.loggedUser.getValue();
-    // return this.loggedUser.value;
   }
 
   login(user: LoginData){
