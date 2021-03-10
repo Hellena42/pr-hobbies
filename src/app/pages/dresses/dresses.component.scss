@@ -1,13 +1,35 @@
+.dress-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.dress-form input,  .dress-form button {
+  width: 200px;
+  margin-bottom: 15px;
+}
+
 .dresses-wrap {
   display: flex;
   margin-top: 20px;
 }
 
 .dresses-wrap p {
-  width: 200px;
   color: green;
   font-weight: bold;
   margin-right: 15px;;
+}
+
+.dresses-wrap input {
+  max-width: 100px;
+}
+
+.column {
+  display: flex;
+}
+
+.column button {
+  margin-right: 15px;
 }
 
 .dress-size {

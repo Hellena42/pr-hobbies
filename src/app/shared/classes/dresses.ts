@@ -1,12 +1,20 @@
 export class Dresses{
+  _id?: any;
   name: string;
-  original_price: number;
-  size: any;
+  title: string;
+  number: number;
+  flag: boolean;
+  isEdit?: boolean;
+  dressAvailable?: boolean;
 
   constructor() {
+    this._id = 0;
     this.name = '';
-    this.original_price = 0;
-    this.size = '';
+    this.title = '';
+    this.number = 0;
+    this.flag = false;
+    this.isEdit = false;
+    this.dressAvailable = false
   }
 }
 

@@ -1,8 +1,36 @@
-<div class="dresses-wrap" *ngFor="let dress of dresses">
-  <p>Name: {{dress.name}}</p>
-  <p>Price: {{dress.original_price || 'n/a'}}</p>
-  <div *ngFor="let item of dress.size">
-    <span class="dress-size">Size: {{item}}</span>
-  </div>
+<div class="dress-add">
+  <form action="" class="dress-form">
+    <input type="text" placeholder="название" [(ngModel)]='dressName' name='dressName'>
+    <input type="text" placeholder="заголовок" [(ngModel)]='dressTitle' name='dressTitle'>
+    <input type="text" placeholder="количество" [(ngModel)]='dressAmount' name='dressAmount'>
+    <label> В наличии/отсутствует: <input type="checkbox" [(ngModel)]='dressAvailable' name="dressAvailable"></label>
+    <button type="submit" (click)='addDress()'>Добавить платье</button> 
+  </form>
 </div>
-<hr>
+<div class="dresses-wrap" *ngFor="let dress of dresses">
+  <div class="column">
+    <p>Name:
+      <span *ngIf='!dress.isEdit'>{{dress.name}}</span>
+      <input *ngIf='dress.isEdit' type="text" [(ngModel)]='dress.name' name="dressName">
+    </p>
+    <p>Title: 
+      <span *ngIf='!dress.isEdit'>{{dress.title}}</span>
+      <input *ngIf='dress.isEdit' type="text" [(ngModel)]='dress.title' name="dressTitle">
+    </p>
+    <p>Number:
+      <span *ngIf='!dress.isEdit'>{{dress.number}}</span>
+      <input *ngIf='dress.isEdit' type="text" [(ngModel)]='dress.number' name="dressAmount">
+    </p>
+    <p>Available:
+      <span *ngIf='!dress.isEdit'>{{dress.flag}}</span>
+      <input *ngIf='dress.isEdit' type="checkbox" name="editAvailable" [(ngModel)]='dress.flag' name="dressAvailable">
+    </p>
+  </div>
+  <div class="column" *ngIf='!dress.isEdit'>
+    <button type="button" class="btn btn-danger" (click)='deleteDress(dress._id)'>Delete</button>
+    <button type="button" class="btn btn-primary" (click)='dress.isEdit=true'>Edit</button>
+  </div>
+  <div class="column" *ngIf='dress.isEdit'>
+    <button type="button" class="btn btn-danger" (click)='cancelEdit(dress)'>Cancel</button>
+    <button type="button" class="btn btn-primary" (click)='saveDress(dress._id, dress)'>Save</button>
+  </div>
