@@ -10,7 +10,7 @@ import { LoginPageComponent } from './pages/login-page/login-page.component';
 const routes: Routes = [
   {path: '', redirectTo: '/', pathMatch: 'full'},
   {path: '', component: DressesComponent},
-  // {path: '', component: LoginPageComponent},
+  {path: 'login', component: LoginPageComponent},
   {path: 'home', component: HomeComponent},
   {path: 'hobbies', component: HobbiesComponent},
   {path: 'hobbies/:id', component: HobbyDetailsComponent},

@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
     public authService: AuthService) {
       this.authService.isLoggedIn.subscribe(value => {
         if (value) {
+          console.log('val', value);
           this.authenticated = true;
         } else {
           this.authenticated = false;

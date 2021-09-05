@@ -7,30 +7,74 @@
     <button type="submit" (click)='addDress()'>Добавить платье</button> 
   </form>
 </div>
-<div class="dresses-wrap" *ngFor="let dress of dresses">
-  <div class="column">
-    <p>Name:
-      <span *ngIf='!dress.isEdit'>{{dress.name}}</span>
-      <input *ngIf='dress.isEdit' type="text" [(ngModel)]='dress.name' name="dressName">
-    </p>
-    <p>Title: 
-      <span *ngIf='!dress.isEdit'>{{dress.title}}</span>
-      <input *ngIf='dress.isEdit' type="text" [(ngModel)]='dress.title' name="dressTitle">
-    </p>
-    <p>Number:
-      <span *ngIf='!dress.isEdit'>{{dress.number}}</span>
-      <input *ngIf='dress.isEdit' type="text" [(ngModel)]='dress.number' name="dressAmount">
-    </p>
-    <p>Available:
-      <span *ngIf='!dress.isEdit'>{{dress.flag}}</span>
-      <input *ngIf='dress.isEdit' type="checkbox" name="editAvailable" [(ngModel)]='dress.flag' name="dressAvailable">
-    </p>
+<div class="dress-wrapper">
+  <div class="left-section">
+    <div class="filter-block">
+      <div class="filter-header">
+        <span>Наличие</span>
+      </div>
+      <div class="filter-box">
+        <ul class="filter-list">
+          <li>
+            <input id="aval" type="checkbox">
+            <label for="aval">Есть</label>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="filter-block">
+      <div class="filter-header">
+        <span>Количество</span>
+      </div>
+      <div class="filter-box">
+        <ul class="filter-list" *ngFor='let f of filterList'>
+          <li>
+            <input id="number" type="checkbox" [checked]='f.checked' (change)="onItemChanged(f)">
+            <label for="number">{{f.title}}</label>
+          </li>
+          <!-- <li>
+            <input id="number" type="checkbox" [checked]='filterList[1].checked'>
+            <label for="number">до 11</label>
+          </li>
+          <li>
+            <input id="number" type="checkbox">
+            <label for="number">до 150</label>
+          </li>
+          <li>
+            <input id="number" type="checkbox">
+            <label for="number">до 400</label>
+          </li> -->
+        </ul>
+      </div>
+    </div>
   </div>
-  <div class="column" *ngIf='!dress.isEdit'>
-    <button type="button" class="btn btn-danger" (click)='deleteDress(dress._id)'>Delete</button>
-    <button type="button" class="btn btn-primary" (click)='dress.isEdit=true'>Edit</button>
+  <div class="right-section">
+  <div class="dresses-wrap" *ngFor="let dress of dresses | titleTransform">
+    <div class="column">
+      <p>Name:
+        <span *ngIf='!dress.isEdit'>{{dress.name}}</span>
+        <input *ngIf='dress.isEdit' type="text" [(ngModel)]='dress.name' name="dressName">
+      </p>
+      <p>Title: 
+        <span *ngIf='!dress.isEdit'>{{dress.title}}</span>
+        <input *ngIf='dress.isEdit' type="text" [(ngModel)]='dress.title' name="dressTitle">
+      </p>
+      <p>Number:
+        <span *ngIf='!dress.isEdit'>{{dress.number}}</span>
+        <input *ngIf='dress.isEdit' type="text" [(ngModel)]='dress.number' name="dressAmount">
+      </p>
+      <p>Available:
+        <span *ngIf='!dress.isEdit'>{{dress.flag}}</span>
+        <input *ngIf='dress.isEdit' type="checkbox" name="editAvailable" [(ngModel)]='dress.flag' name="dressAvailable">
+      </p>
+    </div>
+    <div class="column" *ngIf='!dress.isEdit'>
+      <button type="button" class="btn btn-danger" (click)='deleteDress(dress._id)'>Delete</button>
+      <button type="button" class="btn btn-primary" (click)='dress.isEdit=true'>Edit</button>
+    </div>
+    <div class="column" *ngIf='dress.isEdit'>
+      <button type="button" class="btn btn-danger" (click)='cancelEdit(dress)'>Cancel</button>
+      <button type="button" class="btn btn-primary" (click)='saveDress(dress._id, dress)'>Save</button>
+    </div>
   </div>
-  <div class="column" *ngIf='dress.isEdit'>
-    <button type="button" class="btn btn-danger" (click)='cancelEdit(dress)'>Cancel</button>
-    <button type="button" class="btn btn-primary" (click)='saveDress(dress._id, dress)'>Save</button>
-  </div>
+</div>

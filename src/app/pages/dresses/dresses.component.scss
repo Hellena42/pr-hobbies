@@ -1,3 +1,39 @@
+.dress-wrapper {
+  display: flex;
+}
+
+.left-section {
+  width: 100px;
+  margin-right: 50px;
+}
+
+.filter-block {
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-list {
+
+  margin: 0;
+  padding: 0;
+
+}
+
+.filter-list li {
+  display: flex;
+  align-items: baseline;
+  list-style: none;
+}
+
+.filter-list input {
+  margin-right: 10px;
+}
+
+.right-section {
+  display: flex;
+  flex-direction: column;
+}
+
 .dress-form {
   display: flex;
   flex-direction: column;

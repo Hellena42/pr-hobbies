@@ -13,6 +13,7 @@ import { AuthGuard } from './shared/guards/auth.guard';
 import { HomeModule } from './pages/home/home.module';
 import { DressesComponent } from './pages/dresses/dresses.component';
 import { from } from 'rxjs';
+import { TitleTransformPipe } from './shared/pipes/content/title/title-transform.pipe';
 // import { HomeInfoComponent } from './pages/home/home-info/home-info/home-info.component';
 
 @NgModule({
@@ -24,6 +25,7 @@ import { from } from 'rxjs';
     HobbiesComponent,
     HobbyDetailsComponent,
     DressesComponent,
+    TitleTransformPipe,
     // HomeInfoComponent
   ],
   imports: [

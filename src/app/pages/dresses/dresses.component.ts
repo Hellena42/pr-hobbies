@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ETIME } from 'constants';
+import { BehaviorSubject } from 'rxjs';
 import { Dresses } from 'src/app/shared/classes/dresses';
 
 @Component({
@@ -20,7 +22,10 @@ export class DressesComponent implements OnInit {
   dressAmount: any;
   dressAvailable = false;
 
-  constructor(private http: HttpClient) {}
+  filteringDresses: Dresses[] = [];
+
+  constructor(private http: HttpClient) { 
+  }
 
   ngOnInit() {
     this.getDressList();
@@ -30,8 +35,49 @@ export class DressesComponent implements OnInit {
     this.http.get<Dresses[]>(this.DATABASE_URL, this.httpOptions)
     .subscribe(dresses => {
       this.dresses = dresses;
-    });
+      this.filteringDresses = dresses;
+
+      this.filteredValue.subscribe(f => {
+        this.dresses = dresses;
+        
+        f.forEach((el:any) => {
+          if (el.title === 'до 5') {
+            this.dresses = this.filteringDresses.filter(n => {
+              return (n.number <= 5);
+            });
+          } else if (el.title === 'от 6 до 11') {
+            this.dresses = this.filteringDresses.filter(n => {
+              return (n.number > 5 && n.number <= 11);
+            });
+          } else if (el.title === 'от 12 до 150') {
+            this.dresses = this.filteringDresses.filter(n => {
+              return (n.number > 12 && n.number <= 150);
+            });
+          } else if (el.title === 'от 151 до 400') {
+            this.dresses = this.filteringDresses.filter(n => {
+              return (n.number > 151 && n.number <= 400);
+            })
+          }
+        });
+      })
+    },
+      err => {
+        console.log(err);
+      }
+    );
   }
+
+
+  // getDressList() {
+  //   this.http.get<Dresses[]>(this.DATABASE_URL, this.httpOptions)
+  //   .subscribe(dresses => {
+  //     this.dresses = dresses;
+  //   },
+  //     err => {
+  //       console.log(err);
+  //     }
+  //   );
+  // }
 
   addDress() {
     const newDress: Dresses = {
@@ -99,5 +145,56 @@ export class DressesComponent implements OnInit {
         }
       }
     });
+  }
+
+
+  //sort and filter
+
+  filteredList: any[] = [];
+  filteredValue: BehaviorSubject<any> = new BehaviorSubject([]);
+
+  onFilter (value: any[]) {
+    this.filteredValue.next(value);
+    console.log("value", value);
+  }
+
+  filterList = [
+    {
+      title: 'до 5',
+      checked: false,
+    },
+    {
+      title: 'от 6 до 11',
+      checked: false,
+    },
+    {
+      title: 'от 12 до 150',
+      checked: false,
+    },
+    {
+      title: 'от 151 до 400',
+      checked: false,
+    }
+  ];
+
+  onItemChanged (val: any){
+
+    //Select one checkbox
+    // this.filteredList.forEach(el => {
+    //   el.checked = false;
+    // });
+
+   if (!val.checked) {
+     val.checked = true;
+     this.filteredList.push(val);
+   } else {
+     val.checked = false;
+     let index = this.filteredList.indexOf(val);
+     if (index >= 0) {
+       this.filteredList.splice(index, 1);
+     }
+   }
+  
+   this.onFilter(this.filteredList);
   }
 }

@@ -26,7 +26,8 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.initForm();
-    this.userName = this.authService.getUsername();
+    // this.userName = this.authService.getUsername();
+    this.authService.getUsername();
   }
 
   initForm() {
